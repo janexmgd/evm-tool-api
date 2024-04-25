@@ -1,5 +1,12 @@
 import axios from 'axios';
 import { setTimeout } from 'node:timers/promises';
+class tabular {
+  constructor(address, privateKey) {
+    this.address = address;
+    this.privateKey = privateKey;
+  }
+}
+let table = {};
 const createWallet = async () => {
   try {
     const { data } = await axios.post(
@@ -17,12 +24,13 @@ const createWallet = async () => {
       const rCreateWallet = await createWallet();
       if (rCreateWallet.code == 200) {
         const { address, privateKey } = rCreateWallet.data;
-        const toPrint = `[${i}] ${address} || ${privateKey}`;
-        console.log(toPrint);
+        table[i] = new tabular(address, privateKey);
       }
       await setTimeout(100);
       i++;
     }
+    console.table(table);
+    table = {};
   } catch (error) {
     console.log(error);
   }
