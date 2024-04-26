@@ -1,5 +1,6 @@
 import response from '../helper/response.js';
 import createWallet from '../service/wallet/create.js';
+import balanceWallet from '../service/wallet/balance.js';
 const { success, failed } = response;
 const walletController = {
   create: async (req, res, next) => {
@@ -13,6 +14,32 @@ const walletController = {
           address,
           privateKey,
         },
+      });
+    } catch (error) {
+      console.log(error);
+      return failed(res, {
+        code: error.code || 500,
+        status: 'error',
+        message: error.message || 'internal server error',
+      });
+    }
+  },
+  balance: async (req, res, next) => {
+    try {
+      const { address, network } = req.query;
+      if (!address || !network) {
+        return failed(res, {
+          code: 400,
+          status: 'error',
+          message: 'no address or network at request',
+        });
+      }
+      const data = await balanceWallet(address, network);
+      return success(res, {
+        code: 200,
+        status: 'success',
+        message: 'success create wallet',
+        data,
       });
     } catch (error) {
       console.log(error);
