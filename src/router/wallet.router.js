@@ -5,6 +5,5 @@ const { create, balance } = walletController;
 const walletRouter = express.Router();
 
 walletRouter.post('/wallet/create', create);
-walletRouter.get('/wallet/balance', balance);
-
+walletRouter.get('/wallet/balance/:network', balance);
 export default walletRouter;

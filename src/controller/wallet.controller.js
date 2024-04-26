@@ -26,21 +26,32 @@ const walletController = {
   },
   balance: async (req, res, next) => {
     try {
-      const { address, network } = req.query;
-      if (!address || !network) {
+      const { network } = req.params;
+      const { ca, address } = req.query;
+      if (!address) {
         return failed(res, {
           code: 400,
           status: 'error',
           message: 'no address or network at request',
         });
       }
-      const data = await balanceWallet(address, network);
-      return success(res, {
-        code: 200,
-        status: 'success',
-        message: 'success get balance',
-        data,
-      });
+      if (!ca) {
+        const data = await balanceWallet(address, network);
+        return success(res, {
+          code: 200,
+          status: 'success',
+          message: 'success get balance',
+          data,
+        });
+      } else {
+        const data = await balanceWallet(address, network, ca);
+        return success(res, {
+          code: 200,
+          status: 'success',
+          message: 'success get balance',
+          data,
+        });
+      }
     } catch (error) {
       if (error.reason) {
         error.code = 400;
