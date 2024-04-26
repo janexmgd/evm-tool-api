@@ -37,7 +37,7 @@ const balanceWallet = async (address, networkReq) => {
     //   tokenList.push(tokenx);
     // }
     const data = {
-      network: Network.BASE_MAINNET,
+      network: network,
       address,
       eth: ethBalance,
       //   token: [...tokenList],
