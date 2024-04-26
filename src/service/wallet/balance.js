@@ -5,8 +5,11 @@ const alchemyAPIKEY = process.env.ALCHEMY_API_KEY;
 const balanceWallet = async (address, networkReq) => {
   try {
     let network;
+
     if (networkReq == 'base') {
       network = Network.BASE_MAINNET;
+    } else if (networkReq == 'arb') {
+      network = Network.ARB_MAINNET;
     } else {
       throw new Error('NO network supported');
     }

@@ -23,3 +23,14 @@ success response
   }
 }
 ```
+
+- get eth balance
+
+  you can get eth balance by address (supported base mainnet,arb mainnet not tested)
+
+```
+GET https://evm-tool-api.vercel.app/wallet/balance?address=YOURADDRESS&network=YOURNETWORK
+
+YOUR ADDRESS = 0X98272Y(YOUR CRYPTO ADDRESS)
+YOUR NETWORK = base/arb
+```

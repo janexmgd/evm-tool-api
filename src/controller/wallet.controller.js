@@ -38,15 +38,17 @@ const walletController = {
       return success(res, {
         code: 200,
         status: 'success',
-        message: 'success create wallet',
+        message: 'success get balance',
         data,
       });
     } catch (error) {
-      console.log(error);
+      if (error.reason) {
+        error.code = 400;
+      }
       return failed(res, {
         code: error.code || 500,
         status: 'error',
-        message: error.message || 'internal server error',
+        message: error.reason || error.message || 'internal server error',
       });
     }
   },
