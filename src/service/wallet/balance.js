@@ -49,7 +49,6 @@ const balanceWallet = async (address, networkReq, ca) => {
           },
         };
       }
-      console.log(data);
       return data;
     }
   } catch (error) {
